@@ -3,10 +3,7 @@ const { PassThrough, Transform } = require("node:stream");
 function defaultErrorHandler(error) {
 	// onerror2 and this handler
 	if (this.listenerCount("error") < 3) {
-		console.error(
-			"Plumber found unhandled error:",
-			error,
-		);
+		console.error("Plumber found unhandled error:", error);
 	}
 }
 
