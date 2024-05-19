@@ -1,14 +1,11 @@
 const { PassThrough, Transform } = require("node:stream");
-const fancyLog = require("fancy-log");
-const colors = require("ansi-colors");
-const PluginError = require("plugin-error");
 
 function defaultErrorHandler(error) {
 	// onerror2 and this handler
 	if (this.listenerCount("error") < 3) {
-		fancyLog(
-			colors.cyan("Plumber") + colors.red(" found unhandled error:\n"),
-			error.toString(),
+		console.error(
+			"Plumber found unhandled error:",
+			error,
 		);
 	}
 }
@@ -113,7 +110,7 @@ function plumber(opts = {}) {
 
 	function alternatePipe(rawDest, ...rest) {
 		if (!rawDest) {
-			throw new PluginError("plumber", "Can't pipe to undefined");
+			throw new Error("plumber: Can't pipe to undefined");
 		}
 
 		if (plumber.isStopped(rawDest) || plumber.isPlumber(rawDest)) {

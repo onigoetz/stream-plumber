@@ -17,11 +17,6 @@
     "test": "ava 'test/*\\.test\\.js'",
     "test:ci": "c8 --clean --reporter=text --reporter=lcov --reporter=html --include=index.js ava 'test/*\\.test\\.js'"
   },
-  "dependencies": {
-    "ansi-colors": "^4.0.0",
-    "fancy-log": "2.0.0",
-    "plugin-error": "2.0.1"
-  },
   "devDependencies": {
     "@biomejs/biome": "^1.7.3",
     "ava": "6.1.3",
