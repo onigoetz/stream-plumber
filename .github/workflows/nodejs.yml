@@ -42,8 +42,6 @@ jobs:
         cache: 'yarn'
     - name: yarn install
       run: yarn install
-    - name: yarn build
-      run: yarn build
     - name: Testing
       run: yarn test:ci
       env:
