@@ -3,6 +3,9 @@
 	"organizeImports": {
 		"enabled": true
 	},
+	"formatter": {
+		"ignore": ["package.json"]
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {
