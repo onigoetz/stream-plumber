@@ -1,6 +1,6 @@
 {
 	"name": "@onigoetz/stream-plumber",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Prevent pipe breaking caused by errors from gulp plugins",
 	"keywords": [
 		"gulpplugin",
