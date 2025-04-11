@@ -16,7 +16,8 @@ const PIPE_FN_ORIGINAL = Symbol.for("plumber:original");
 
 function patchPipe(stream, alternatePipe) {
 	stream[PIPE_FN_PATCHED] = alternatePipe;
-	stream[PIPE_FN_ORIGINAL] = stream.pipe;
+	// In some legacy implementations, we need to call _pipe instead of pipe
+	stream[PIPE_FN_ORIGINAL] = stream._pipe || stream.pipe;
 	stream.pipe = stream[PIPE_FN_PATCHED];
 	stream[PLUMBER_IS_PATCHED] = true;
 }
