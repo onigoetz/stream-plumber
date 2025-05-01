@@ -3,7 +3,7 @@ const test = require("ava");
 const { finished } = require("node:stream/promises");
 const gulp = require("gulp");
 
-const stream = require("stream");
+const stream = require("node:stream");
 const streamx = require("streamx");
 const composer = require("stream-composer");
 const through2 = require("through2");
