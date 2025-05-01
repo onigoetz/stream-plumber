@@ -82,8 +82,8 @@ const libraries = [
 	},
 	{
 		name: "stromjs",
-		createTransform: () => strom.filter(s => true),
-	}
+		createTransform: () => strom.filter((s) => true),
+	},
 ];
 
 for (const { name, createTransform } of libraries) {
