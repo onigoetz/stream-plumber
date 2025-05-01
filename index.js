@@ -16,8 +16,7 @@ const PIPE_FN_ORIGINAL = Symbol.for("plumber:original");
 
 function patchPipe(stream, alternatePipe) {
 	stream[PIPE_FN_PATCHED] = alternatePipe;
-	// In some legacy implementations, we need to call _pipe instead of pipe
-	stream[PIPE_FN_ORIGINAL] = stream._pipe || stream.pipe;
+	stream[PIPE_FN_ORIGINAL] = stream.pipe;
 	stream.pipe = stream[PIPE_FN_PATCHED];
 	stream[PLUMBER_IS_PATCHED] = true;
 }
@@ -36,52 +35,46 @@ function wrapStream(original, errorHandler) {
 		return original;
 	}
 
-	let ranErrorCallback = false;
-	let unpauseCallback;
+	const callbacks = [];
+	function callNext() {
+		if (callbacks.length > 0) {
+			const next = callbacks.shift();
+			next();
+		}
+	}
 
 	const wrapper = new Transform({
 		objectMode: true,
-		transform(chunk, encoding, callback) {
-			ranErrorCallback = false;
+		transform(chunk, encoding, next) {
+			callbacks.push(next);
 
-			return original.write(chunk, encoding, (err, data) => {
-				if (err) {
-					// If the error callback already ran we call it directly
-					// otherwise we need to store the callback until we run the error callback
-					if (ranErrorCallback) {
-						callback();
-					} else {
-						unpauseCallback = callback;
-					}
-				} else {
-					callback(null, data);
-				}
-			});
+			// We write to the original stream and wait for a "data" or "error" event
+			// the `next` callback will be called once we received the event
+			// this should ensure the backpressure is handled correctly
+			original.write(chunk, encoding);
 		},
 	});
 
-	// Hoist data to wrapper
 	original.on("data", (data) => {
+		// Push data to the wrapper
 		if (!wrapper.push(data)) {
+			// If  the wrapper is full, we need to pause the original stream
 			original.pause();
 		}
+
+		callNext();
 	});
 
 	original.on("end", () => wrapper.push(null));
 	original.on("drain", () => wrapper.emit("drain"));
 	original.on("error", (err) => {
-		// Modern stream destroy themselves when an error is sent
+		// Modern stream destroy themselves when an error is thrown
 		// luckly they have an hidden _undestroy method
 		if (original._undestroy) {
 			original._undestroy();
 		}
 
-		if (unpauseCallback) {
-			unpauseCallback();
-			unpauseCallback = null;
-		}
-
-		ranErrorCallback = true;
+		callNext();
 
 		errorHandler(err);
 	});
