@@ -97,13 +97,9 @@ function wrapStream(original, errorHandler) {
 	});
 
 	original.on("data", (data) => {
-		// Guard: wrapper may already be ended if callNext() advanced the stream
-		// before all data events from a 1-to-N transform have fired.
-		if (!wrapper.readableEnded) {
-			if (!wrapper.push(data)) {
-				// If  the wrapper is full, we need to pause the original stream
-				original.pause();
-			}
+		if (!wrapper.push(data)) {
+			// If  the wrapper is full, we need to pause the original stream
+			original.pause();
 		}
 
 		callNext();
