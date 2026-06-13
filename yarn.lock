@@ -248,7 +248,7 @@ __metadata:
     c8: "npm:10.1.3"
     gulp: "npm:^5.0.0"
     stream-composer: "npm:1.0.2"
-    streamx: "npm:2.26.0"
+    streamx: "npm:2.27.0"
     stromjs: "npm:0.5.5"
     through2: "npm:4.0.2"
   languageName: unknown
@@ -2780,14 +2780,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"streamx@npm:2.26.0, streamx@npm:^2.12.0, streamx@npm:^2.12.5, streamx@npm:^2.13.2, streamx@npm:^2.14.0":
-  version: 2.26.0
-  resolution: "streamx@npm:2.26.0"
+"streamx@npm:2.27.0, streamx@npm:^2.12.0, streamx@npm:^2.12.5, streamx@npm:^2.13.2, streamx@npm:^2.14.0":
+  version: 2.27.0
+  resolution: "streamx@npm:2.27.0"
   dependencies:
     events-universal: "npm:^1.0.0"
     fast-fifo: "npm:^1.3.2"
     text-decoder: "npm:^1.1.0"
-  checksum: 10c0/4230fee44e5251d14c9c9bb793f8ffae569ee4217f06f14fe75928ad068f678931f27cd8fab7cab029db58b483bda69679bb5e3aae9256fd20fdd536d36ed3d4
+  checksum: 10c0/8746bbf0e735067ccafb2b95198fbdcd53aaed0f610d0406b5aa1b321c75fac80dee928e902684b2d3fd3435f55cdd9da6b1a1e36be41a5903e8e4d58602468a
   languageName: node
   linkType: hard
 
