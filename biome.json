@@ -7,7 +7,7 @@
 		"enabled": true,
 		"includes": ["**", "!test/**", "!package.json"],
 		"rules": {
-			"recommended": true,
+			"preset": "recommended",
 			"style": {
 				"noParameterAssign": "off"
 			},

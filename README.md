@@ -20,13 +20,14 @@ npm install @onigoetz/stream-plumber
 Then, add it to your `gulpfile.js`:
 
 ```javascript
-var plumber = require('@onigoetz/stream-plumber');
-var coffee = require('gulp-coffee');
+var plumber = require("@onigoetz/stream-plumber");
+var coffee = require("gulp-coffee");
 
-gulp.src('./src/*.ext')
+gulp
+	.src("./src/*.ext")
 	.pipe(plumber())
 	.pipe(coffee())
-	.pipe(gulp.dest('./dist'));
+	.pipe(gulp.dest("./dist"));
 ```
 
 ## API
@@ -36,39 +37,43 @@ gulp.src('./src/*.ext')
 Returns Stream, that fixes `pipe` methods on Streams that are next in pipeline.
 
 #### options
+
 Type: `Object` / `Function`
 Default: `{}`
 
 Sets options described below from its properties. If type is `Function` it will be set as `errorHandler`.
 
 #### options.inherit
+
 Type: `Boolean`
 Default: `true`
 
 Monkeypatch `pipe` functions in underlying streams in pipeline.
 
 #### options.errorHandler
+
 Type: `Boolean` / `Function` <br/>
 Default: `true`
 
 Handle errors in underlying streams and output them to console.
- * `function` - it will be attached to stream `on('error')`.
- * `false` - error handler will not be attached.
- * `true` - default error handler will be attached.
+- `function` - it will be attached to stream `on('error')`.
+- `false` - error handler will not be attached.
+- `true` - default error handler will be attached.
 
 ### plumber.stop()
 
 This method will return default behaviour for pipeline after it was piped.
 
 ```javascript
-var plumber = require('@onigoetz/stream-plumber');
+var plumber = require("@onigoetz/stream-plumber");
 
-gulp.src('./src/*.scss')
-    .pipe(plumber())
-    .pipe(sass())
-    .pipe(uglify())
-    .pipe(plumber.stop())
-    .pipe(gulp.dest('./dist'));
+gulp
+	.src("./src/*.scss")
+	.pipe(plumber())
+	.pipe(sass())
+	.pipe(uglify())
+	.pipe(plumber.stop())
+	.pipe(gulp.dest("./dist"));
 ```
 
 ## License
