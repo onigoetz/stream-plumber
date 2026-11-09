@@ -56,6 +56,7 @@ Type: `Boolean` / `Function` <br/>
 Default: `true`
 
 Handle errors in underlying streams and output them to console.
+
 - `function` - it will be attached to stream `on('error')`.
 - `false` - error handler will not be attached.
 - `true` - default error handler will be attached.
